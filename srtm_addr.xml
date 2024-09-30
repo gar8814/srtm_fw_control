@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<node>
+    <!-- These are the 10G registers -->
+    <node id="AB_sanity_reg"        description="" address="0xB00A0000" permission="rw"/>
+    <node id="AB_control_reg"       description="" address="0xB00A0004" permission="rw" tags="type=register,permission=rw">
+        <node id="send_A"           description=""  mask="0x00000001" permission="rw" tags="permission=rw"/>
+        <node id="send_B"           description=""  mask="0x00000010" permission="rw" tags="permission=rw"/>
+        <node id="A_loopback_b227"    description=""  mask="0x00007000" permission="rw" tags="permission=rw"/>
+        <node id="A_loopback_b228_0"  description=""  mask="0x00038000" permission="rw" tags="permission=rw"/>
+        <node id="B_loopback_b228_1"  description=""  mask="0x001c0000" permission="rw" tags="permission=rw"/>
+        <node id="B_loopback_b229"    description=""  mask="0x00e00000" permission="rw" tags="permission=rw"/>
+        <node id="B_loopback_b230"    description=""  mask="0x07000000" permission="rw" tags="permission=rw"/>
+        <node id="A_loopback_b231"    description=""  mask="0x38000000" permission="rw" tags="permission=rw"/>
+        <node id="reset"            description=""  mask="0x80000000" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="AB_status_reg"          description="" address="0xB00A0008" permission="rw" tags="type=register,permission=rw">
+        <node id="A_busy"             description=""  mask="0x00000001" permission="rw" tags="permission=rw"/>
+        <node id="B_busy"             description=""  mask="0x00000002" permission="rw" tags="permission=rw"/>
+        <node id="rd_txfifo_empty_A"  description=""  mask="0x00100000" permission="rw" tags="permission=rw"/>
+        <node id="rd_rxfifo_empty_A"  description=""  mask="0x00200000" permission="rw" tags="permission=rw"/>
+        <node id="rd_txfifo_empty_B"  description=""  mask="0x00400000" permission="rw" tags="permission=rw"/>
+        <node id="rd_rxfifo_empty_B"  description=""  mask="0x00800000" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="AB_gt_lock"            description="" address="0xB00A000C" permission="rw">
+        <node id="A_gt_lock_b227"    description=""  mask="0x00000001" permission="rw" tags="permission=rw"/>
+        <node id="A_gt_lock_b228_0"  description=""  mask="0x00000002" permission="rw" tags="permission=rw"/>
+        <node id="B_gt_lock_b228_1"  description=""  mask="0x00000004" permission="rw" tags="permission=rw"/>
+        <node id="B_gt_lock_b229"    description=""  mask="0x00000008" permission="rw" tags="permission=rw"/>
+        <node id="B_gt_lock_b230"    description=""  mask="0x00000010" permission="rw" tags="permission=rw"/>
+        <node id="A_gt_lock_b231"    description=""  mask="0x00000020" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="AB_block_lock"            description="" address="0xB00A0010" permission="rw">
+        <node id="A_block_lock_b227"    description=""  mask="0x00000001" permission="rw" tags="permission=rw"/>
+        <node id="A_block_lock_b228_0"  description=""  mask="0x00000002" permission="rw" tags="permission=rw"/>
+        <node id="B_block_lock_b228_1"  description=""  mask="0x00000004" permission="rw" tags="permission=rw"/>
+        <node id="B_block_lock_b229"    description=""  mask="0x00000008" permission="rw" tags="permission=rw"/>
+        <node id="B_block_lock_b230"    description=""  mask="0x00000010" permission="rw" tags="permission=rw"/>
+        <node id="A_block_lock_b231"    description=""  mask="0x00000020" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="AB_comp_status"            description="" address="0xB00A0014" permission="rw">
+        <node id="A_comp_status_b227"    description=""  mask="0x0000001F" permission="rw" tags="permission=rw"/>
+        <node id="A_comp_status_b228_0"  description=""  mask="0x000003E0" permission="rw" tags="permission=rw"/>
+        <node id="B_comp_status_b228_1"  description=""  mask="0x00007C00" permission="rw" tags="permission=rw"/>
+        <node id="B_comp_status_b229"    description=""  mask="0x000F8000" permission="rw" tags="permission=rw"/>
+        <node id="B_comp_status_b230"    description=""  mask="0x01F00000" permission="rw" tags="permission=rw"/>
+        <node id="A_comp_status_b231"    description=""  mask="0x3E000000" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="AB_cont_packet"            description=""  address="0xB00A0018" permission="rw">
+        <node id="A_cont_packet_b227"    description=""  mask="0x00000001" permission="rw" tags="permission=rw"/>
+        <node id="A_cont_packet_b228_0"  description=""  mask="0x00000002" permission="rw" tags="permission=rw"/>
+        <node id="B_cont_packet_b228_1"  description=""  mask="0x00000004" permission="rw" tags="permission=rw"/>
+        <node id="B_cont_packet_b229"    description=""  mask="0x00000008" permission="rw" tags="permission=rw"/>
+        <node id="B_cont_packet_b230"    description=""  mask="0x00000010" permission="rw" tags="permission=rw"/>
+        <node id="A_cont_packet_b231"    description=""  mask="0x00000020" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="AB_restart"            description="" address="0xB00A001C" permission="rw">
+        <node id="A_restart_b227"    description=""  mask="0x00000001" permission="rw" tags="permission=rw"/>
+        <node id="A_restart_b228_0"  description=""  mask="0x00000002" permission="rw" tags="permission=rw"/>
+        <node id="B_restart_b228_1"  description=""  mask="0x00000004" permission="rw" tags="permission=rw"/>
+        <node id="B_restart_b229"    description=""  mask="0x00000008" permission="rw" tags="permission=rw"/>
+        <node id="B_restart_b230"    description=""  mask="0x00000010" permission="rw" tags="permission=rw"/>
+        <node id="A_restart_b231"    description=""  mask="0x00000020" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="A_data_to_send"       description=""  address="0xB00A0020" permission="rw"/>
+    <node id="A_max_words"          description=""  address="0xB00A0024" permission="rw"/>
+    <node id="A_rxfifo_rd_data_lo"  description=""  address="0xB00A0028" permission="rw"/>
+    <node id="A_rxfifo_rd_data_hi"  description=""  address="0xB00A002C" permission="rw"/>
+    <node id="A_fifo_word_cnt"      description=""  address="0xB00A0030" permission="rw"/>
+    <node id="A_10g_clk_count"      description=""  address="0xB00A0034" permission="rw"/>
+    <node id="A_packet_counter_control"     description=""  address="0xB00A0038" permission="rw">
+        <node id="rx_counter_clear"       description=""  mask="0x40000000" permission="rw" tags="permission=rw"/>
+        <node id="tx_counter_clear"       description=""  mask="0x80000000" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="B_data_to_send"       description=""  address="0xB00A003C" permission="rw"/>
+    <node id="B_max_words"          description=""  address="0xB00A0040" permission="rw"/>
+    <node id="B_rxfifo_rd_data_lo"  description=""  address="0xB00A0044" permission="rw"/>
+    <node id="B_rxfifo_rd_data_hi"  description=""  address="0xB00A0048" permission="rw"/>
+    <node id="B_fifo_word_cnt"      description=""  address="0xB00A004C" permission="rw"/>
+    <node id="B_10g_clk_count"      description=""  address="0xB00A0050" permission="rw"/>
+    <node id="B_packet_counter_control"     description=""  address="0xB00A0054" permission="rw">
+        <node id="rx_counter_clear"       description=""  mask="0x40000000" permission="rw" tags="permission=rw"/>
+        <node id="tx_counter_clear"       description=""  mask="0x80000000" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="AB_test_mode"       description="" address="0xB00A0058" permission="rw">
+        <node id="A_test_mode"    description=""  mask="0x00000003" permission="rw" tags="permission=rw"/>
+        <node id="B_test_mode"    description=""  mask="0x00000030" permission="rw" tags="permission=rw"/>
+    </node>
+
+    <node id="AB_frame_source"       description="" address="0xB00A005C" permission="rw">
+        <node id="A_frame_source_b227"    description=""  mask="0x00000001" permission="rw" tags="permission=rw"/>
+        <node id="A_frame_source_b228_0"  description=""  mask="0x00000002" permission="rw" tags="permission=rw"/>
+        <node id="B_frame_source_b228_1"  description=""  mask="0x00000004" permission="rw" tags="permission=rw"/>
+        <node id="B_frame_source_b229"    description=""  mask="0x00000008" permission="rw" tags="permission=rw"/>
+        <node id="B_frame_source_b230"    description=""  mask="0x00000010" permission="rw" tags="permission=rw"/>
+        <node id="A_frame_source_b231"    description=""  mask="0x00000020" permission="rw" tags="permission=rw"/>
+    </node>
+
+    <node id="A_10g_tx_udp_good_count"      description=""  address="0xB00A0060" permission="rw"/>
+    <node id="A_10g_tx_b227_good_count"     description=""  address="0xB00A0064" permission="rw"/>
+    <node id="A_10g_tx_b228_0_good_count"   description=""  address="0xB00A0068" permission="rw"/>
+    <node id="A_10g_tx_b231_good_count"     description=""  address="0xB00A006C" permission="rw"/>
+    <node id="A_10g_tx_udp_bad_count"       description=""  address="0xB00A0070" permission="rw"/>
+    <node id="A_10g_tx_b227_bad_count"      description=""  address="0xB00A0074" permission="rw"/>
+    <node id="A_10g_tx_b228_0_bad_count"    description=""  address="0xB00A0078" permission="rw"/>
+    <node id="A_10g_tx_b231_bad_count"      description=""  address="0xB00A007C" permission="rw"/>
+    <node id="A_10g_rx_b227_good_count"     description=""  address="0xB00A0080" permission="rw"/>
+    <node id="A_10g_rx_b227_bad_count"      description=""  address="0xB00A0084" permission="rw"/>
+    <node id="B_10g_tx_udp_good_count"      description=""  address="0xB00A0088" permission="rw"/>
+    <node id="B_10g_tx_b229_good_count"     description=""  address="0xB00A008C" permission="rw"/>
+    <node id="B_10g_tx_b228_1_good_count"   description=""  address="0xB00A0090" permission="rw"/>
+    <node id="B_10g_tx_b230_good_count"     description=""  address="0xB00A0094" permission="rw"/>
+    <node id="B_10g_tx_udp_bad_count"       description=""  address="0xB00A0098" permission="rw"/>
+    <node id="B_10g_tx_b229_bad_count"      description=""  address="0xB00A009C" permission="rw"/>
+    <node id="B_10g_tx_b228_1_bad_count"    description=""  address="0xB00A00A0" permission="rw"/>
+    <node id="B_10g_tx_b230_bad_count"      description=""  address="0xB00A00A4" permission="rw"/>
+    <node id="B_10g_rx_b230_good_count"     description=""  address="0xB00A00A8" permission="rw"/>
+    <node id="B_10g_rx_b230_bad_count"      description=""  address="0xB00A00AC" permission="rw"/>
+
+
+    <!-- These are the freq counter registers -->
+    <node id="freq_count_ctrl_reg"      address="0xB0050000" permission="rw" tags="type=register,permission=rw">
+        <node id="freq_count_nclks"   description="fc_nclks"  mask="0x000000FF" permission="r"  tags="permission=r"/>
+        <node id="freq_count_enable"  description="fc enable" mask="0x20000000" permission="rw" tags="permission=rw"/>
+        <node id="freq_count_clear"   description="fc clear"  mask="0x40000000" permission="rw" tags="permission=rw"/>
+        <node id="freq_count_done"    description="fc done"   mask="0x80000000" permission="r"  tags="permission=r"/>
+    </node>
+
+    <node id="freq_count_max_cnt"     address="0xB0050004" permission="rw" tags="type=register,permission=rw"/>
+    <node id="freq_count_base"        address="0xB0050008" permission="r" tags="type=register,permission=r"/>
+    <node id="freq_count_clk0"        address="0xB005000C" permission="r" tags="type=register,permission=r"/>
+    <node id="freq_count_clk1"        address="0xB0050010" permission="r" tags="type=register,permission=r"/>
+    <node id="freq_count_clk2"        address="0xB0050014" permission="r" tags="type=register,permission=r"/>
+    <node id="freq_count_clk3"        address="0xB0050018" permission="r" tags="type=register,permission=r"/>
+    <node id="freq_count_clk4"        address="0xB005001C" permission="r" tags="type=register,permission=r"/>
+    <node id="freq_count_clk5"        address="0xB0050020" permission="r" tags="type=register,permission=r"/>
+    <node id="freq_count_clk6"        address="0xB0050024" permission="r" tags="type=register,permission=r"/>
+    <node id="freq_count_clk7"        address="0xB0050028" permission="r" tags="type=register,permission=r"/>
+    <node id="freq_count_clk8"        address="0xB005002C" permission="r" tags="type=register,permission=r"/>
+    <node id="freq_count_clk9"        address="0xB0050030" permission="r" tags="type=register,permission=r"/>
+    <node id="freq_count_clk10"       address="0xB0050034" permission="r" tags="type=register,permission=r"/>
+    <node id="freq_count_clk11"       address="0xB0050038" permission="r" tags="type=register,permission=r"/>
+    <node id="freq_count_clk12"       address="0xB005003C" permission="r" tags="type=register,permission=r"/>
+    <node id="freq_count_clk13"       address="0xB0050040" permission="r" tags="type=register,permission=r"/>
+    <node id="freq_count_clk14"       address="0xB0050044" permission="r" tags="type=register,permission=r"/>
+    <node id="freq_count_clk15"       address="0xB0050048" permission="r" tags="type=register,permission=r"/>
+
+    <!-- These are the ilkn registers -->
+    <node id="ilkn_tx_data_to_send"     address="0xB0080000" permission="rw"/>
+    <node id="ilkn_sanity_reg"          address="0xB0080004" permission="rw"/>
+    <node id="ilkn_max_words"   description="max words to send 10g"  address="0xB0080008" permission="rw"/>
+
+    <node id="ilkn_control_reg"     address="0xB008000C" permission="rw" tags="type=register,permission=rw">
+        <node id="send"            description="send"  mask="0x00000001" permission="rw" tags="permission=rw"/>
+        <node id="frame_source"    description="frame_source"  mask="0x00000010" permission="rw" tags="permission=rw"/>
+        <node id="enable_loopback"  description="enable_loopback"  mask="0x07000000" permission="rw" tags="permission=rw"/>
+        <node id="reset"         description="reset"  mask="0x80000000" permission="rw" tags="permission=rw"/>
+    </node>
+
+    <node id="ilkn_status_reg"      address="0xB0080010" permission="rw" tags="type=register,permission=rw">
+        <node id="busy"           description="busy"             mask="0x00000001" permission="rw" tags="permission=rw"/>
+       <node id="gt_locked_i"     description="gt_locked_i"      mask="0x00000002" permission="rw" tags="permission=rw"/>
+       <node id="rd_rxfifo_empty" description="rd_rxfifo_empty"  mask="0x00000200" permission="rw" tags="permission=rw"/>
+    </node>
+
+    <node id="ilkn_rxfifo_rd_data_lo"      address="0xB0080014" permission="rw"/>
+    <node id="ilkn_rxfifo_rd_data_hi"      address="0xB0080018" permission="rw"/>
+    <node id="ilkn_word_count_reg"         address="0xB008001c" permission="rw"/>
+    <node id="ilkn_gt_clk_count"           address="0xB0080020" permission="rw"/>
+    <node id="ilkn_packet_count"           address="0xB0080024" permission="rw"/>
+
+
+
+    <!-- These are the felix registers -->
+    <!-- there used to be others like counts and rxcommadet and rxbyteisaligned and tx_is_comma -->
+    <node id="felix_sanity_reg"     address="0xB0070004" permission="rw"/>
+    <node id="felix_control_reg"     address="0xB007000C" permission="rw" tags="type=register,permission=rw">
+        <node id="frame_source"    description="frame_source"   mask="0x00000010" permission="rw" tags="permission=rw"/>
+        <node id="b130_ch0_loopback"   description="b130_ch0_loopback"  mask="0x00070000" permission="rw" tags="permission=rw"/>
+        <node id="b130_ch1_loopback"   description="b130_ch1_loopback"  mask="0x00380000" permission="rw" tags="permission=rw"/>
+        <node id="b130_ch2_loopback"   description="b130_ch2_loopback"  mask="0x01C00000" permission="rw" tags="permission=rw"/>
+        <node id="reset"         description="reset"  mask="0x80000000" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="felix_status_reg"      address="0xB0070010" permission="rw" tags="type=register,permission=rw">
+        <node id="b130_lnk_stat" description="b130_lnk_stat"  mask="0x00000001" permission="rw" tags="permission=rw"/>
+        <node id="b130_qpll_lock" description="b130_qpll_lock"  mask="0x00000002" permission="rw" tags="permission=rw"/>
+    </node>
+
+    <!-- These are the lti registers -->
+    <node id="lti_sanity_reg"      description = " "  address="0xB0090000" permission="rw"/>
+    <node id="lti_tx_fifo_data"    description = " "  address="0xB0090004" permission="rw"/>
+    <node id="lti_max_words"       description = "lti_max_words"  address="0xB0090008" permission="rw"/>
+    <node id="lti_control_reg"     description = "lti_control_words" address="0xB009000C" permission="rw" tags="type=register,permission=rw">
+        <node id="send"            description ="send"  mask="0x00000001" permission="rw" tags="permission=rw"/>
+        <node id="reserved1"       description ="reserved1"  mask="0x0000000E" permission="rw" tags="permission=rw"/>
+        <node id="frame_source"    description ="frame_source"  mask="0x00000010" permission="rw" tags="permission=rw"/>
+        <node id="reserved2"       description ="reserved2"  mask="0x000000E0" permission="rw" tags="permission=rw"/>
+        <node id="loopback"        description ="loopback"  mask="0x00000100" permission="rw" tags="permission=rw"/>
+        <node id="reset"           description ="reset"  mask="0x80000000" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="lti_status_reg"      description = "lti_status_words" address="0xB0090010" permission="rw" tags="type=register,permission=rw">
+        <node id="link_status"     description = "link status"  mask="0x00000001" permission="rw" tags="permission=rw"/>
+        <node id="gt_lock_b225"    description = "gt_lock_b225"  mask="0x00000002" permission="rw" tags="permission=rw"/>
+        <node id="tx_ready"        description = "tx_ready"  mask="0x00000004" permission="rw" tags="permission=rw"/>
+        <node id="rx_byte_align"   description = "rx_byte_align"  mask="0x00000008" permission="rw" tags="permission=rw"/>
+        <node id="rx_comma_det"    description = "rx_comma_det"  mask="0x00000010" permission="rw" tags="permission=rw"/>
+        <node id="rx_comma_det_en" description = "rx_comma_det_en"  mask="0x00000020" permission="rw" tags="permission=rw"/>
+        <node id="rxp_comma_align_en"    description = "rxp_comma_align_en"  mask="0x00000040" permission="rw" tags="permission=rw"/>
+        <node id="rxm_comma_align_en"    description = "rxm_comma_align_en"  mask="0x00000080" permission="rw" tags="permission=rw"/>
+        <node id="rx_ctrl2"        description = "rx_ctrl2"  mask="0x0000FF00" permission="rw" tags="permission=rw"/>
+        <node id="rx_reset_done"   description = "rx_reset_done"  mask="0x00010000" permission="rw" tags="permission=rw"/>
+	<node id="reserved4"       description = "reserved4"  mask="0xFFFE0000" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="lti_tx_word_cnt"      description = "lti_tx_word_cnt"  address="0xB0090014" permission="rw"/>
+    <node id="lti_rx_word_cnt"      description = "lti_rx_word_cnt"  address="0xB0090018" permission="rw"/>
+    <node id="lti_tx_fifo_charisk"  description = "lti_charisk_fifo_reg"  address="0xB009001c" permission="rw"/>
+    <node id="lti_ts_cnt"           description = "lti_ts_cnt"  address="0xB0090020" permission="rw"/>
+    <node id="lti_grst_cnt"         description = "lti_grst_cnt"  address="0xB0090024" permission="rw"/>
+    <node id="lti_l0a_cnt"          description = "lti_l0a_cnt"  address="0xB0090028" permission="rw"/>
+    <node id="lti_tmsg_cnt"         description = "lti_tmsg_cnt"  address="0xB009002c" permission="rw"/>
+    <node id="lti_counter_clear"    description = "lti_counter_clear"  address="0xB0090030" permission="rw">
+        <node id="ts_counter_clear"     description ="ts_counter_clear"   mask="0x00000001" permission="rw" tags="permission=rw"/>
+        <node id="grst_counter_clear"   description ="grst_counter_clear" mask="0x00000002" permission="rw" tags="permission=rw"/>
+        <node id="l0a_counter_clear"    description ="l0a_counter_clear"  mask="0x00000004" permission="rw" tags="permission=rw"/>
+        <node id="tmsg_counter_clear"   description ="tmsg_counter_clear" mask="0x00000008" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="lti_l0a_bcid"          description = "lti_l0a_bcid"  address="0xB0090034" permission="rw"/>
+    <node id="lti_l0a_l0id_low"      description = "lti_l0a_l0id_low"  address="0xB0090038" permission="rw"/>
+    <node id="lti_l0a_l0id_high"     description = "lti_l0a_l0id_high"  address="0xB009003c" permission="rw"/>
+
+
+    <!-- These are the spi registers -->
+    <node id="spi_sanity_reg"   description = "spi_sanity_reg"     address="0xB00B0000" permission="rw"/>
+    <node id="spi_master_data"  description = "spi_master_data"   address="0xB00B0004" permission="rw"/>
+    <node id="spi_master_max_words"   description = "spi_master_max_words"     address="0xB00B0008" permission="rw"/>
+    <node id="spi_master_control_reg" description = "spi_master_control_reg"   address="0xB00B000c" permission="rw">
+        <node id="send"         description = "send"      mask="0x00000001" permission="rw" tags="permission=rw"/>
+        <node id="reserved1"    description = "reserved1" mask="0x7FFFFFFE" permission="rw" tags="permission=rw"/>
+        <node id="reset"        description = "reset"     mask="0x80000000" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="spi_master_status_reg"  description="spi_master_status_reg"   address="0xB00B0010" permission="rw">
+        <node id="master_ready"       description ="master_ready"      mask="0x00000001" permission="rw" tags="permission=rw"/>
+        <node id="reserved2"    description ="reserved2" mask="0xFFFFFFFE" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="spi_master_tx_word_cnt"   description="spi_master_tx_word_cnt"  address="0xB00B0014" permission="rw"/>
+    <node id="spi_master_rx_word_cnt"   description="spi_master_rx_word_cnt"  address="0xB00B0018" permission="rw"/>
+    <node id="spi_slave_data"  description = "spi_slave_data"   address="0xB00B0020" permission="rw"/>
+    <node id="spi_slave_max_words"   description = "spi_slave_max_words"     address="0xB00B0024" permission="rw"/>
+    <node id="spi_slave_control_reg" description = "spi_slave_control_reg"   address="0xB00B0028" permission="rw">
+        <node id="send"         description = "send"      mask="0x00000001" permission="rw" tags="permission=rw"/>
+        <node id="reserved1"    description = "reserved1" mask="0x7FFFFFFE" permission="rw" tags="permission=rw"/>
+        <node id="reset"        description = "reset"     mask="0x80000000" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="spi_slave_status_reg"  description="spi_slave_status_reg"   address="0xB00B002C" permission="rw">
+        <node id="slave_ready"       description ="slave_ready"      mask="0x00000001" permission="rw" tags="permission=rw"/>
+        <node id="reserved2"    description ="reserved2" mask="0xFFFFFFFE" permission="rw" tags="permission=rw"/>
+    </node>
+    <node id="spi_slave_tx_word_cnt"   description="spi_slave_tx_word_cnt"  address="0xB00B0030" permission="rw"/>
+    <node id="spi_slave_rx_word_cnt"   description="spi_slave_rx_word_cnt"  address="0xB00B0034" permission="rw"/>
+
+
+    <!-- These are the Board info registers -->
+    <node id="axi_boardinfo_efuse"      description="b_id_sn"    address="0xB0030000" permission="r"/>
+    <node id="axi_boardinfo_dna_low"    description="dna_low"    address="0xB0030004" permission="r"/>
+    <node id="axi_boardinfo_dna_middle" description="dna_middle" address="0xB0030008" permission="r"/>
+    <node id="axi_boardinfo_dna_high"   description="dna_high"   address="0xB003000C" permission="r"/>
+    <node id="axi_boardinfo_user_reg0"  description="usr_reg0"   address="0xB0030010" permission="rw"/>
+    <node id="axi_boardinfo_user_reg1"  description="usr_reg1"   address="0xB0030014" permission="rw"/>
+    <node id="axi_boardinfo_user_reg2"  description="usr_reg2"   address="0xB0030018" permission="rw"/>
+    <node id="axi_boardinfo_user_reg3"  description="usr_reg3"   address="0xB003001C" permission="rw"/>
+    <node id="axi_boardinfo_user_reg4"  description="usr_reg4"   address="0xB0030020" permission="rw"/>
+    <node id="axi_boardinfo_user_reg5"  description="usr_reg5"   address="0xB0030024" permission="rw"/>
+    <node id="axi_boardinfo_user_reg6"  description="usr_reg6"   address="0xB0030028" permission="rw"/>
+    <node id="axi_boardinfo_user_reg7"  description="usr_reg7"   address="0xB003002C" permission="rw"/>
+
+
+    <node id="axi_gpio_0" address="0xB0000000" >
+        <node id="reg" address="0x0" permission="r" />
+    </node>
+    <node id="axi_gpio_1" address="0xB0010000" >
+        <node id="reg" address="0x0" permission="r" />
+    </node>
+    <node id="axi_gpio_led" address="0xB0020000" >
+        <node id="reg" address="0x0" permission="r" />
+    </node>
+
+
+</node>
