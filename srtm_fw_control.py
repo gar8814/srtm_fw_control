@@ -1,4 +1,4 @@
-import FirmwareControl
+from FirmwareControl import FirmwareControl
 
 def main():
     instance = FirmwareControl()

@@ -12,7 +12,7 @@ class Ipbus:
     def read(self, reg):
         ''' Read a single register and retun the read value
         '''
-        out = self._hw.getNode(reg)
+        out = self._hw.getNode(reg).read()
         self._hw.dispatch()
         return out
 
