@@ -3,7 +3,9 @@ import uhal
     via the ipbus protocol 
 '''
 class Ipbus:
+    
     def __init__(self, ipAddr):
+        self._ipAddr = ipAddr
         self._manager = uhal.ConnectionManager("file://srtm_connection.xml")
         self._hw = self._manager.getDevice("udp.srtm")
         
