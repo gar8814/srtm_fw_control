@@ -2,9 +2,9 @@ from SRTM import SRTM
 from Menu import Menu
 
 class FirmwareControl:
-    def __init__(self):
+    def __init__(self, debug=False):
         self._srtms = []
-        self._srtms.append(SRTM("117"))
+        self._srtms.append(SRTM("117", debug))
         self._menu = Menu()
         
         pass
