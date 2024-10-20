@@ -42,4 +42,3 @@ class Ipbus:
             except:
                 print("Error writing register")
                 return -1
-
