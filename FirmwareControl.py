@@ -6,10 +6,7 @@ class FirmwareControl:
         self._srtms = []
         self._srtms.append(SRTM("117", debug))
         self._menu = Menu()
-        
-        pass
-    
-    
+
     def run(self):
         while (True):
             print("SRTM Firmware Control:")
@@ -21,7 +18,8 @@ class FirmwareControl:
                 for srtm in self._srtms:
                     print(hex(srtm.read_axi_board_info_dnaHigh()))
         
-        print("Exiting...")
+        
+
         while (True):
             command = self._menu.run()
             #if menu.run returns null, maybe change to -1, then end
@@ -108,6 +106,7 @@ class FirmwareControl:
                     elif command=='freq_count_clk16':
                         pass
                     #expand as SRTM is more complete
+       print("Exiting...")  
 
 def getReadWrite(self):
     ret=0
@@ -115,4 +114,3 @@ def getReadWrite(self):
         print("Would you like to read (1) or write (2)?")
         ret = int(input(">").strip())
     return ret
-

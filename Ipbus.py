@@ -2,6 +2,7 @@ import uhal
 ''' This class is the interface for performing read and write opartions 
     via the ipbus protocol 
 '''
+uhal.setLogLevelTo(uhal.LogLevel. WARNING)
 class Ipbus:
     
     def __init__(self, ipAddr, debug=False):
@@ -10,6 +11,7 @@ class Ipbus:
         self._hw = self._manager.getDevice("atca.tcp.srtm")
         self._debug = debug
         print(debug)
+        
         
     def read(self, reg):
         ''' Read a single register and retun the read value
@@ -40,3 +42,4 @@ class Ipbus:
             except:
                 print("Error writing register")
                 return -1
+
