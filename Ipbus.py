@@ -27,7 +27,7 @@ class Ipbus:
             except: 
                 print("Error reading register")
                 return -1
-        
+
     def write(self, reg, data):
         ''' Write to a register and return 0 if success or -1 for error. 
         '''
@@ -42,3 +42,4 @@ class Ipbus:
             except:
                 print("Error writing register")
                 return -1
+
