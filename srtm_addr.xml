@@ -264,11 +264,11 @@
     <node id="axi_boardinfo_dna_low"    description="dna_low"    address="0xB0030004" permission="r"/>
     <node id="axi_boardinfo_dna_middle" description="dna_middle" address="0xB0030008" permission="r"/>
     <node id="axi_boardinfo_dna_high"   description="dna_high"   address="0xB003000C" permission="r"/>
-    <node id="axi_boardinfo_user_reg0"  description="usr_reg0"   address="0xB0030010" permission="rw"/>
-    <node id="axi_boardinfo_user_reg1"  description="usr_reg1"   address="0xB0030014" permission="rw"/>
-    <node id="axi_boardinfo_user_reg2"  description="usr_reg2"   address="0xB0030018" permission="rw"/>
-    <node id="axi_boardinfo_user_reg3"  description="usr_reg3"   address="0xB003001C" permission="rw"/>
-    <node id="axi_boardinfo_user_reg4"  description="usr_reg4"   address="0xB0030020" permission="rw"/>
+    <node id="axi_boardinfo_user_reg0"  description="usr_reg0"   address="0xB0030010" permission="r"/>
+    <node id="axi_boardinfo_user_reg1"  description="usr_reg1"   address="0xB0030014" permission="r"/>
+    <node id="axi_boardinfo_user_reg2"  description="usr_reg2"   address="0xB0030018" permission="r"/>
+    <node id="axi_boardinfo_user_reg3"  description="usr_reg3"   address="0xB003001C" permission="r"/>
+    <node id="axi_boardinfo_user_reg4"  description="usr_reg4"   address="0xB0030020" permission="r"/>
     <node id="axi_boardinfo_user_reg5"  description="usr_reg5"   address="0xB0030024" permission="rw"/>
     <node id="axi_boardinfo_user_reg6"  description="usr_reg6"   address="0xB0030028" permission="rw"/>
     <node id="axi_boardinfo_user_reg7"  description="usr_reg7"   address="0xB003002C" permission="rw"/>

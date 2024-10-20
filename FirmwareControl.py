@@ -19,4 +19,3 @@ class FirmwareControl:
                     print(hex(srtm.read_axi_board_info_dnaHigh()))
         
         print("Exiting...")
-
