@@ -35,5 +35,4 @@ class FirmwareControl:
                 pass
             elif command=="LTI":
                 # do specified test
-
-
+                pass
