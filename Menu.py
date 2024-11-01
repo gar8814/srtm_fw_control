@@ -1,34 +1,54 @@
 class Menu:
     def __init__(self):
         self.currentMenu = "Main Menu"
-        self.leafSelection = None
+        
+        # "Menu Name": {
+        #   "options": ["option num1", "option num2"], # ** REQUIRED **
+        #   "parent" : "Name of Parent Menu", # ** REQUIRED **
+        #   "extra options" : ["Read"],
+        #   "prefix" : "option ", # removed from beginning of each "option" when displayed
+        #   "operation" : "Write " # added to beginning of each "option" when displayed.
+        #}
+        
+        # Output: 
+        # Menu Name:
+        #   1. Write num1
+        #   2. Write num2
+        #   3. Read
+        #   0. Back
+        
         self.menuTree = {
             "Main Menu": {
-                "options": ["Board Info", "Frequency Counter"],
-                "prefix": "",
+                "options": ["Board Info", "Frequency Counter", "LTI"],
                 "parent": None
             },
             "Board Info": {
-                "options": ['axi_boardinfo_efuse', 'axi_boardinfo_dna_low', 'axi_boardinfo_dna_middle', 'axi_boardinfo_dna_high', 'axi_boardinfo_user_reg0', 
-                            'axi_boardinfo_user_reg1', 'axi_boardinfo_user_reg2', 'axi_boardinfo_user_reg3', 'axi_boardinfo_user_reg4', 
-                            'axi_boardinfo_user_reg5', 'axi_boardinfo_user_reg6', 'axi_boardinfo_user_reg7'],
+                "options": ['axi_boardinfo_user_reg5', 'axi_boardinfo_user_reg6', 'axi_boardinfo_user_reg7'],
+                "parent": "Main Menu",
+                "extra options": ['Read'],
                 "prefix": "axi_boardinfo_",
-                "parent": "Main Menu"
+                "operation": "Write "
             },
             "Frequency Counter": {
-                "options": ['freq_count_ctrl_reg', 'freq_count_max_cnt', 'freq_count_base', 'freq_count_clk0', 'freq_count_clk1', 'freq_count_clk2', 'freq_count_clk3', 
-                            'freq_count_clk4', 'freq_count_clk5', 'freq_count_clk6', 'freq_count_clk7', 'freq_count_clk8', 'freq_count_clk9', 
-                            'freq_count_clk10', 'freq_count_clk11', 'freq_count_clk12', 'freq_count_clk13', 'freq_count_clk14', 'freq_count_clk15', 
-                            'freq_count_clk16'],
+                "options": ['freq_count_max_cnt'],
+                "parent": "Main Menu",
+                "extra options": ['Read'],
                 "prefix": "freq_count_",
+                "operation": "Write "
+            },
+            "LTI": {
+                "options" : ['Run Test A', 'Run Test B'],
                 "parent": "Main Menu"
             }
         }
 
+ 
+
     def run(self):
         while True:
-            self._displayCurrentMenu()
-            choice = self._getSelection(self.menuTree[self.currentMenu]["options"])
+            self.displayCurrentMenu()
+            currentSelections = len(self.menuTree[self.currentMenu].get("options", []) + self.menuTree[self.currentMenu].get("extra options", []))
+            choice = self._getSelection(currentSelections)
             
             if choice == 0:
                 if self.currentMenu == "Main Menu":
@@ -37,32 +57,49 @@ class Menu:
                 else:
                     self.currentMenu = self.menuTree[self.currentMenu]["parent"]
             else:
-                selectedOption = self.menuTree[self.currentMenu]["options"][choice - 1]
+                if choice > len(self.menuTree[self.currentMenu]["options"]):
+                    selectedOption = self.menuTree[self.currentMenu]["extra options"][choice - len(self.menuTree[self.currentMenu]["options"]) - 1]
+                    selectedOption = selectedOption + " " + self.currentMenu
+                else:
+                    selectedOption = self.menuTree[self.currentMenu]["options"][choice - 1]
                 if selectedOption in self.menuTree:
                     self.currentMenu = selectedOption
                 else:
                     print(f"Selected: {selectedOption}")
-                    leafSelection = selectedOption
                     return selectedOption
+
     
-    def _displayCurrentMenu(self):
+    def displayCurrentMenu(self):
         returnOption = "Back"
+        operation = self.menuTree[self.currentMenu].get("operation", "")
         if self.currentMenu == 'Main Menu':
             returnOption = "Exit"
+            operation = ""
+        
+        options = self.menuTree[self.currentMenu].get("options", [])
+        prefix = self.menuTree[self.currentMenu].get("prefix", [])
+        extraOptions = self.menuTree[self.currentMenu].get("extra options", [])
+        
         print(f"{self.currentMenu}:")
-        options = self.menuTree[self.currentMenu]["options"]
-        for index, option in enumerate(options, start=1):
-            suffix = option[len(self.menuTree[self.currentMenu]["prefix"]):]
-            print(f"\t{index}. {suffix}")
+        
+        optionNumbering = 1
+        for option in options:
+            suffix = option[len(prefix):]
+            print(f"\t{optionNumbering}. {operation}{suffix}")
+            optionNumbering += 1
+        
+        for extraOption in extraOptions:
+            print(f"\t{optionNumbering}. {extraOption}")
+            
+        
         print("\t0. " + returnOption)
     
     def _getSelection(self, options):
         while True:
             try:
                 choice = int(input(">").strip())
-                if 0 <= choice <= len(options):
+                if 0 <= choice <= options:
                     return choice
-                else:
-                    print("Invalid selection, please try again.")
+                print("Invalid selection, please try again.")
             except ValueError:
                 print("Invalid input, please enter an integer.")
