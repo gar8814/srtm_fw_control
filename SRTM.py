@@ -10,49 +10,22 @@ class SRTM:
         else:
             self._ipbus = Ipbus("192.168.0." + id)
 
-    def read_axi_board_info_efues(self):
-        reg = self._ipbus.read("axi_boardinfo_efuse")
-
-        return reg
-
-    def read_axi_board_info_dnaHigh(self):
-        reg = self._ipbus.read("axi_boardinfo_dna_high")
-
-        return reg
-
-    def read_axi_board_info_middle(self):
-        reg = self._ipbus.read("axi_boardinfo_dna_middle")
-
-        return reg
-    
-    def read_axi_board_info_low(self):
-        reg = self._ipbus.read("axi_boardinfo_dna_low")
-
-        return reg
-    
-    def _does_reg_exist(self, reg):
-        if (isinstance(reg, int) is False):
-            return False
-
-        if (reg < 0 | reg > (self.num_registers - 1)):
-            return False
-        
-        return True
-    
-    def read_axi_boardinfo_usernum(self, reg):
-        # reg = corresponding register number
-        #
-        # @return values:
-        # successful return = reg read
-        # reg doesn't exist = None
-
-        if self._does_reg_exist(reg) is False:
-            return None
-        
-        reg_name = "axi_boardinfo_user_reg" + str(reg)
-        reg = self._ipbus.read(reg_name)
-
-        return reg
+    def read_board(self, reg):
+        # returns None for invalid reg values
+        if reg == "efuse":
+            return self._ipbus.read("axi_boardinfo_efuse")
+        if reg == "high":
+            return self._ipbus.read("axi_boardinfo_dna_high")
+        if reg == "middle":
+            return self._ipbus.read("axi_boardinfo_dna_middle")
+        if reg == "low":
+            return self._ipbus.read("axi_boardinfo_dna_low")
+        if isinstance(reg, int):
+            if(reg< 0 | reg > (self.num_registers - 1)):
+                return None
+            reg_name = "axi_boardinfo_user_reg" + str(reg)
+            return self._ipbus.read(reg_name)
+        return None
         
     def write_axi_boardinfo_usernum(self, reg, write):
         # Attempts to write to register
@@ -73,3 +46,20 @@ class SRTM:
         wri = self._ipbus.write(reg_name, write)
         
         return wri
+    
+    # Reads (and prints) all boards
+    def read_all_boards(self):
+        efuse = self.read_board("efuse")
+        print(f'efuse:      {efuse}')
+
+        high = self.read_board("high")
+        middle = self.read_board("middle")
+        low = self.read_board("low")
+        print(f'dna high:   {high}')
+        print(f'dna middle: {middle}')
+        print(f'dna low:    {low}')
+
+        for i in range(self.num_registers):
+            reg = self.read_board(i)
+            print(f'userreg {i}:  {reg}')
+        return
