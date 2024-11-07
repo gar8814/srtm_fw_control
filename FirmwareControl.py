@@ -36,9 +36,11 @@ class FirmwareControl:
             elif command=="Run Test A":
                 case = self.LTIcase()
                 print(f'LTI {case} runs here')
+                #SRTM.lti_send_test_data(case)
             elif command=="Run Test B":
                 case = self.LTIcase()
                 print(f'LTI {case} runs here')
+                #SRTM.lti_send_test_data(case)
             else:
                 #returns reg name
                 if command == 'freq_count_max_cnt':
