@@ -30,13 +30,16 @@ class FirmwareControl:
             if command==0:
                 break
             elif command=="Read Board Info":
-                SRTM.read_all_boards()
+                for i in range(len(self._srtms)):
+                    self._srtms[i].read_all_boards()
             elif command=="Read Frequency Counter":
-                SRTM._read_each_clk()
+                for i in range(len(self._srtms)):
+                    self._srtms[i]._read_each_clk()
             elif command=="Run Test A":
                 case = self.LTIcase()
                 print(f'LTI {case} runs here')
-                #SRTM.lti_send_test_data(case)
+                for i in range(len(self._srtms)):
+                    self._srtms[i].lti_send_test_data(case)
             elif command=="Run Test B":
                 case = self.LTIcase()
                 print(f'LTI {case} runs here')
@@ -47,4 +50,5 @@ class FirmwareControl:
                     pass
                 elif self.getReadWrite()==1:
                     msg=self.writeMsg()
-                    SRTM.write_axi_boardinfo_usernum(command,msg)
+                    for i in range(len(self._srtms)):
+                        self._srtms[i].write_axi_boardinfo_usernum(command,msg)
