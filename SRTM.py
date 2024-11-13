@@ -65,7 +65,7 @@ class SRTM:
         freqB = self._ipbus.read("freq_count_base")
         print(f'Base clk:         {int(freqB)}')
 
-        for i in range(16):
+        for i in range(15):
             name_of_clock = "freq_count_clk" + str(i)
             freq = self._ipbus.read(name_of_clock)
             whitespace_amount = " " * (13 - len(clk_names[i]))
