@@ -6,6 +6,7 @@ def main():
     parser.add_argument('-d', '--debug', default=False, help='Use fake ipbus')
     parser.add_argument('-rb', '--readBoard', defualt=False, help='Read all registers')
     parser.add_argument('-lti', defualt=False, help='Go straight to LTI')
+    #add necessary arguments for operations we want and add them to FirmwareControl
     args = parser.parse_args()
     instance = FirmwareControl(args.readBoard, args.debug)
     instance.run()

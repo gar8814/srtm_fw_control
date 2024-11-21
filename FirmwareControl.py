@@ -5,6 +5,9 @@ class FirmwareControl:
     def __init__(self, read, debug):
         self._srtms = []
         self._srtms.append(SRTM("117", debug))
+        # python can't overload functions. Since we can only work with 1 constructor
+        # I think we just have to check for boolean args and perform their ops before
+        # calling menu. readBoard is the example here.
         if read:
             for i in range(len(self._srtms)):
                 self._srtms[i].read_all_boards()
