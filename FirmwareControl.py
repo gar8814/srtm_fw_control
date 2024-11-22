@@ -19,7 +19,7 @@ class FirmwareControl:
         ret = input(">").strip()
         return ret
 
-    def LTIcase(self):
+    def _LTIcase(self):
         print("Enter case number")
         ret = input(">").strip()
         return ret
@@ -29,23 +29,26 @@ class FirmwareControl:
             command = self._menu.run()
             if command==0:
                 break
-            if command=="Read Board Info":
+            elif command=="Read Board Info":
                 for i in range(len(self._srtms)):
                     self._srtms[i].read_all_boards()
-            if command=="Read Frequency Counter":
+
+            elif command=="Read Frequency Counter":
                 for i in range(len(self._srtms)):
                     self._srtms[i].read_all_clk()
-            if command=="Run Test A":
-                case = self.LTIcase()
+
+            elif command=="Run Test A":
+                case = self._LTIcase()
                 print(f'LTI {case} runs here')
                 for i in range(len(self._srtms)):
                     self._srtms[i].lti_send_test_data(case)
-            if command=="Run Test B":
-                case = self.LTIcase()
+
+            elif command=="Run Test B":
+                case = self._LTIcase()
                 print(f'LTI {case} runs here')
                 #SRTM.lti_send_test_data(case)
             #returns reg name
-            if command == 'freq_count_max_cnt':
+            elif command == 'freq_count_max_cnt':
                 print("INFO: ")
                 if self.getReadWrite()==1:
                     msg=self.writeMsg()
