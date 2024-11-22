@@ -19,7 +19,7 @@ class FirmwareControl:
         ret = input(">").strip()
         return ret
 
-    def LTIcase(self):
+    def _LTIcase(self):
         print("Enter case number")
         ret = input(">").strip()
         return ret
@@ -32,23 +32,27 @@ class FirmwareControl:
             elif command=="Read Board Info":
                 for i in range(len(self._srtms)):
                     self._srtms[i].read_all_boards()
+
             elif command=="Read Frequency Counter":
                 for i in range(len(self._srtms)):
-                    self._srtms[i]._read_each_clk()
+                    self._srtms[i].read_all_clk()
+
             elif command=="Run Test A":
-                case = self.LTIcase()
+                case = self._LTIcase()
                 print(f'LTI {case} runs here')
                 for i in range(len(self._srtms)):
                     self._srtms[i].lti_send_test_data(case)
+
             elif command=="Run Test B":
-                case = self.LTIcase()
+                case = self._LTIcase()
                 print(f'LTI {case} runs here')
                 #SRTM.lti_send_test_data(case)
-            else:
-                #returns reg name
-                if command == 'freq_count_max_cnt':
-                    pass
-                elif self.getReadWrite()==1:
+            #returns reg name
+            elif command == 'freq_count_max_cnt':
+                print("INFO: ")
+                if self.getReadWrite()==1:
                     msg=self.writeMsg()
                     for i in range(len(self._srtms)):
                         self._srtms[i].write_axi_boardinfo_usernum(command,msg)
+            else:
+                print(f'ERROR: {command} invalid:')
