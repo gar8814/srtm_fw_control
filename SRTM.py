@@ -324,7 +324,7 @@ class SRTM:
             print ('writing tx fifo data and charisk')
             if (case == 2):
                 print('This can take ~10min')
-                
+                0
             f = open(f'lti_data/lti_input_data_case{case}.dat','r')
             for i in range(linecount):
                 s = f.readline().split()
