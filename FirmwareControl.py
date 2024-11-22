@@ -29,26 +29,27 @@ class FirmwareControl:
             command = self._menu.run()
             if command==0:
                 break
-            elif command=="Read Board Info":
+            if command=="Read Board Info":
                 for i in range(len(self._srtms)):
                     self._srtms[i].read_all_boards()
-            elif command=="Read Frequency Counter":
+            if command=="Read Frequency Counter":
                 for i in range(len(self._srtms)):
-                    self._srtms[i]._read_each_clk()
-            elif command=="Run Test A":
+                    self._srtms[i].read_all_clk()
+            if command=="Run Test A":
                 case = self.LTIcase()
                 print(f'LTI {case} runs here')
                 for i in range(len(self._srtms)):
                     self._srtms[i].lti_send_test_data(case)
-            elif command=="Run Test B":
+            if command=="Run Test B":
                 case = self.LTIcase()
                 print(f'LTI {case} runs here')
                 #SRTM.lti_send_test_data(case)
-            else:
-                #returns reg name
-                if command == 'freq_count_max_cnt':
-                    pass
-                elif self.getReadWrite()==1:
+            #returns reg name
+            if command == 'freq_count_max_cnt':
+                print("INFO: ")
+                if self.getReadWrite()==1:
                     msg=self.writeMsg()
                     for i in range(len(self._srtms)):
                         self._srtms[i].write_axi_boardinfo_usernum(command,msg)
+            else:
+                print(f'ERROR: {command} invalid:')

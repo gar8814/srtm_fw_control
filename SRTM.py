@@ -56,45 +56,170 @@ class SRTM:
         print (f'enable set to: {hex(en_r)}')
         return
     
-    def _read_each_clk(self):
-        clk_names = ["(U5-QP0)", "(U5-QP2)", "(U3)", "(U27-OUT1)",
-                     "(U27-OUT2)", "(U27-OUT3)", "(U27-OUT4)", "(U27-OUT6)",
-                     "(U27-OUT7)", "(U32-OUT1)", "(U32-OUT2)" "(U32-OUT3)",
-                     "(U32-OUT4)", "(U32-OUT6)", "(U32-OUT7)", "(Zone3)"]
-        # Read the count values and find associated frequencies
-        freqB = self._ipbus.read("freq_count_base")
-        print(f'Base clk:         {int(freqB)}')
+    def read_all_clk(self, max_count=100000000):
 
-        for i in range(15):
-            name_of_clock = "freq_count_clk" + str(i)
-            freq = self._ipbus.read(name_of_clock)
-            whitespace_amount = " " * (13 - len(clk_names[i]))
-            print(f'clk {i}{clk_names[i]}:{whitespace_amount}{int(freq)}')
+        nclks = self._ipbus.read('freq_count_ctrl_reg.freq_count_nclks')
+        print(f'nClks (as set by Firmware): {int(nclks)}')
 
-        print ('freq0: gbe1_clk 229 1')
-        print ('freq1: axi_clk_in (kj_125M) 65 x')
-        print ('freq2: xaui clk 229 0')
-        print ('freq3: tdaq1_refclk0 128 0')
-        print ('freq4: tdaq2_refclk0 129 0')
-        print ('freq5: tdaq3_refclk0 130 0')
-        print ('freq6: tdaq4_refclk0 131 0')
-        print ('freq7: si5395_0_out6 65 x')
-        print ('freq8: si5395_0_out7 (40 MHz TTC) 65 x')
-        print ('freq9: tdaq1_refclk1 128 1')
-        print ('freq10: tdaq2_refclk1 129 1')
-        print ('freq11: tdaq3_refclk1 130 1')
-        print ('freq12: tdaq4_refclk1 131 1')
-        print ('freq13: si5395_1_out6 65 x')
-        print ('freq14: si5395_1_out7 (40 MHz TTC alt) 65 x')
-        print ('freq15: ext_strobe 71 X')
+        maxCnt = self._ipbus.read("freq_count_max_cnt")
+        print(f'Default Max_Cnt (as set by Firmware): {int(maxCnt)}')
 
+        self._ipbus.write("freq_count_max_cnt", max_count)
 
+        maxCnt = self._ipbus.read("freq_count_max_cnt")
+        print(f'After write Max_Cnt (as set by Firmware): {int(maxCnt)}')
+
+        # See what done is as test
+        done = self._ipbus.read("freq_count_ctrl_reg.freq_count_done")
+        print (f'done test: {hex(done)}')
+
+        # Initial condition set enable to 0 
+        enable = 0
+        self._ipbus.write("freq_count_ctrl_reg.freq_count_enable", enable)
+        print('writing enable bit = 0')
+
+        en_r = self._ipbus.read("freq_count_ctrl_reg.freq_count_clear")
+        print (f'enable set to: {hex(en_r)}')
+
+        # clear the counters 
         clear = 1
         self._ipbus.write("freq_count_ctrl_reg.freq_count_clear", clear)
-        print("writing clear bit: ", clear)
+        print('writing clear bit = 1')
 
-        read_clear = self._ipbus.read("freq_count_ctrl_reg.freq_count_clear")
-        print("clear: ", hex(read_clear))
+        clear_r = self._ipbus.read("freq_count_ctrl_reg.freq_count_clear")
+        print (f'clear set to: {hex(clear_r)}')
+
+        # set clear to back to 0
+        clear = 0
+        self._ipbus.write("freq_count_ctrl_reg.freq_count_clear", clear)
+        print('writing clear bit = 0')
+
+        clear_r = self._ipbus.read("freq_count_ctrl_reg.freq_count_clear")
+        print (f'clear set to: {hex(clear_r)}')
+
+        # See done should be 0
+        done = self._ipbus.read("freq_count_ctrl_reg.freq_count_done")
+        print (f'done test: {hex(done)}')
+
+        # enable the counters
+        enable = 1
+        self._ipbus.write("freq_count_ctrl_reg.freq_count_enable", enable)
+        print('writing enable bit = 1')
+
+        en_r = self._ipbus.read("freq_count_ctrl_reg.freq_count_enable")
+        print (f'enable set to: {hex(en_r)}')
+
+        ### Wait until the done bit is set to 1
+        done = self._ipbus.read("freq_count_ctrl_reg.freq_count_done")
+        
+
+        i = 0
+        while int(hex(done),16) == 0:
+            time.sleep(1)
+            done = self._ipbus.read("freq_count_ctrl_reg.freq_count_done")
+            i = i + 1
+            if i > 10: 
+                print('timeout ', i, ' seconds have passed')
+                exit(1)
+        print('done: ', hex(done))
+
+
+        ### Read the count values and find associated frequencies
+        freqB = self._ipbus.read("freq_count_base")
+        # print (type(freqB))
+        # print (freqB)
+        print(f'Base clk:         {int(freqB)}')
+
+
+        freq0 = self._ipbus.read("freq_count_clk0")
+        print(f'clk 0 gbe1_clk 229 1(U5-QP0):                     {int(freq0)}')
+
+        freq1 = self._ipbus.read("freq_count_clk1")
+        # print (type(freq1))
+        print(f'clk 1 axi_clk_in (kj_125M) 65 (U5-QP2):           {int(freq1)}')
+        #print('clk 1: ', freq1, ' frequency of ', 100*float(freq1)/float(freq0))
+
+        freq2 = self._ipbus.read("freq_count_clk2")
+        print(f"clk 2 xaui clk 229 0 (U3):                        {int(freq2)}")
+
+        freq3 = self._ipbus.read("freq_count_clk3")
+        print(f"clk 3 tdaq1_refclk0 128 0 (U27-OUT1):             {int(freq3)}")
+
+        freq4 = self._ipbus.read("freq_count_clk4")
+        print(f"clk 4 tdaq2_refclk0 129 0 (U27-OUT2):             {int(freq4)}")
+
+        freq5 = self._ipbus.read("freq_count_clk5")
+        print(f"clk 5 tdaq3_refclk0 130 0 (U27-OUT3):             {int(freq5)}")
+
+        freq6 = self._ipbus.read("freq_count_clk6")
+        print(f"clk 6 tdaq4_refclk0 131 (U27-OUT4):               {int(freq6)}")
+
+        freq7 = self._ipbus.read("freq_count_clk7")
+        print(f"clk 7 si5395_0_out6 65 (U27-OUT6):                {int(freq7)}")
+
+        freq8 = self._ipbus.read("freq_count_clk8")
+        print(f"clk 8 si5395_0_out7 (40 MHz TTC) (U27-OUT7):      {int(freq8)}")
+
+        freq9 = self._ipbus.read("freq_count_clk9")
+        print(f"clk 9 tdaq1_refclk1 128 (U32-OUT1):               {int(freq9)}")
+
+        freq10 = self._ipbus.read("freq_count_clk10")
+        print(f"clk 10 tdaq2_refclk1 129 1 (U32-OUT2):            {int(freq10)}")
+
+        freq11 = self._ipbus.read("freq_count_clk11")
+        print(f"clk 11 tdaq3_refclk1 130 1 (U32-OUT3):            {int(freq11)}")
+
+        freq12 = self._ipbus.read("freq_count_clk12")
+        print(f"clk 12 tdaq4_refclk1 131 1 (U32-OUT4):            {int(freq12)}")
+
+        freq13 = self._ipbus.read("freq_count_clk13")
+        print(f"clk 13 si5395_1_out6 65 (U32-OUT6):               {int(freq13)}")
+
+        freq14 = self._ipbus.read("freq_count_clk14")
+        print(f"clk 14 si5395_1_out7 (40 MHz TTC alt) (U32-OUT7): {int(freq14)}")
+
+        freq15 = self._ipbus.read("freq_count_clk15")
+        print(f"clk 15 ext_strobe (Zone3):                        {int(freq15)}")
+
+
+        # clk_names = ["(U5-QP0)", "(U5-QP2)", "(U3)", "(U27-OUT1)",
+        #              "(U27-OUT2)", "(U27-OUT3)", "(U27-OUT4)", "(U27-OUT6)",
+        #              "(U27-OUT7)", "(U32-OUT1)", "(U32-OUT2)" "(U32-OUT3)",
+        #              "(U32-OUT4)", "(U32-OUT6)", "(U32-OUT7)", "(Zone3)"]
+        # # Read the count values and find associated frequencies
+        # freqB = self._ipbus.read("freq_count_base")
+        # print(f'Base clk:         {int(freqB)}')
+
+        # for i in range(15):
+        #     name_of_clock = "freq_count_clk" + str(i)
+        #     freq = self._ipbus.read(name_of_clock)
+        #     whitespace_amount = " " * (13 - len(clk_names[i]))
+        #     print(f'clk {i}{clk_names[i]}:{whitespace_amount}{int(freq)}')
+
+        # print ('freq0: gbe1_clk 229 1')
+        # print ('freq1: axi_clk_in (kj_125M) 65 x')
+        # print ('freq2: xaui clk 229 0')
+        # print ('freq3: tdaq1_refclk0 128 0')
+        # print ('freq4: tdaq2_refclk0 129 0')
+        # print ('freq5: tdaq3_refclk0 130 0')
+        # print ('freq6: tdaq4_refclk0 131 0')
+        # print ('freq7: si5395_0_out6 65 x')
+        # print ('freq8: si5395_0_out7 (40 MHz TTC) 65 x')
+        # print ('freq9: tdaq1_refclk1 128 1')
+        # print ('freq10: tdaq2_refclk1 129 1')
+        # print ('freq11: tdaq3_refclk1 130 1')
+        # print ('freq12: tdaq4_refclk1 131 1')
+        # print ('freq13: si5395_1_out6 65 x')
+        # print ('freq14: si5395_1_out7 (40 MHz TTC alt) 65 x')
+        # print ('freq15: ext_strobe 71 X')
+
+
+        # clear = 1
+        # self._ipbus.write("freq_count_ctrl_reg.freq_count_clear", clear)
+        # print("writing clear bit: ", clear)
+
+        # read_clear = self._ipbus.read("freq_count_ctrl_reg.freq_count_clear")
+        # print("clear: ", hex(read_clear))
         return
     
     def _clear_counters(self):
