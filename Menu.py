@@ -19,7 +19,7 @@ class Menu:
         
         self.menuTree = {
             "Main Menu": {
-                "options": ["Board Info", "Frequency Counter", "LTI"],
+                "options": ["Board Info", "Frequency Counter", "LTI", "SPI"],
                 "parent": None
             },
             "Board Info": {
@@ -37,19 +37,26 @@ class Menu:
                 "operation": "Write "
             },
             "LTI": {
-                "options" : ['Run Test A', 'Run Test B'],
+                "options" : ['Send Data Test'],
                 "parent": "Main Menu"
+            },
+            "SPI": {
+                "options" : ['Send Master Data', 'Read Sanity', 'Read Status', 'Send Reset'],
+                "parent" : 'Main Menu'
             }
         }
 
  
 
     def run(self):
+        print("INFO: In menu.run()")
         while True:
+
             self.displayCurrentMenu()
+            print("INFO: After menu.DisplayCurrentMenu() call")
             currentSelections = len(self.menuTree[self.currentMenu].get("options", []) + self.menuTree[self.currentMenu].get("extra options", []))
             choice = self._getSelection(currentSelections)
-            
+            print(f'choice = {choice}')
             if choice == 0:
                 if self.currentMenu == "Main Menu":
                     print("Exiting...")
@@ -70,6 +77,7 @@ class Menu:
 
     
     def displayCurrentMenu(self):
+        print("INFO: in menu.displayCurrentMenu()")
         returnOption = "Back"
         operation = self.menuTree[self.currentMenu].get("operation", "")
         if self.currentMenu == 'Main Menu':

@@ -26,6 +26,7 @@ class FirmwareControl:
 
     def run(self):
         while (True):
+            # start the menu and wait for user input. 
             command = self._menu.run()
             if command==0:
                 break
@@ -54,5 +55,17 @@ class FirmwareControl:
                     msg=self.writeMsg()
                     for i in range(len(self._srtms)):
                         self._srtms[i].write_axi_boardinfo_usernum(command,msg)
+            elif command=="Send Master Data":
+                for i in range(len(self._srtms)):
+                    self._srtms[i].spi_send_data_master()
+            elif command=="Read Sanity":
+                for i in range(len(self._srtms)):
+                    self._srtms[i].spi_read_sanity()
+            elif command=="Read Status":
+                for i in range(len(self._srtms)):
+                    self._srtms[i].spi_read_status()
+            elif command=="Send Reset":
+                for i in range(len(self._srtms)):
+                    self._srtms[i].spi_send_reset()
             else:
                 print(f'ERROR: {command} invalid:')

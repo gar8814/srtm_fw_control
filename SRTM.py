@@ -374,5 +374,35 @@ class SRTM:
         except Exception as error:
             print('Bad Case: ', error)
         
-    def _do_lti_case_1():
-        pass
+    def spi_send_data_master(self):
+        print('spi data sent from master')
+
+    def spi_read_sanity(self):
+        print('reading sanity')
+        reg0 = self._ipbus.read("spi_sanity_reg")
+        print("spi sanity register = ", hex(reg0))
+
+        print('done!')
+
+
+    def spi_read_status(self):
+        print('reading status')
+        wait = 0.25
+
+        #print ('read spi master status')
+        print (' ')
+        reg0 = self._ipbus.read("spi_master_status_reg.master_ready")
+        time.sleep(wait)
+        print("spi master_ready", hex(reg0))
+
+        #print ('read spi slave status')                                                                                                                               
+        print (' ')
+        reg0 = self._ipbus.read("spi_slave_status_reg.slave_ready")
+        time.sleep(wait)
+        print("spi slave_ready", hex(reg0))
+
+        print ('done!')
+
+    
+    def spi_send_reset(self):
+        print('sent reset')
