@@ -374,6 +374,96 @@ class SRTM:
         
     def spi_send_data_master(self):
         print('spi data sent from master')
+        f = open('spi_data/spi_data_test.dat','r')
+
+        linecount = 0
+        for line in f:
+            linecount = linecount + 1
+        print (linecount)
+        f.close()
+
+        wait = 0.25
+
+        # set max words
+        max_words = linecount
+        print ('write spi master max_words = ', max_words)
+        self._ipbus.write("spi_master_max_words", max_words)
+        time.sleep(wait)
+
+        print ('writing spi master data')
+        f = open('spi_data/spi_data_test.dat','r')
+        for i in range(linecount):
+            s = f.readline().split()
+        #    print (i,s)
+            spi_data = int(s[0],16)
+            self._ipbus.write("spi_master_data", spi_data)
+
+            time.sleep(wait)
+
+        #print ('read spi master tx word count')
+        reg0 = self._ipbus.read("spi_master_tx_word_cnt")
+        time.sleep(wait)
+        print ('spi_master_tx_word_cnt = ',hex(reg0))
+        master_tx_word_cnt = int(reg0)
+
+        #print ('read spi master rx word count')
+        reg0 = self._ipbus.read("spi_master_rx_word_cnt")
+        time.sleep(wait)
+        print ('spi_master_rx_word_cnt = ',hex(reg0))
+        master_rx_word_cnt = int(reg0)
+
+        #print ('read spi slave tx word count')
+        reg0 = self._ipbus.read("spi_slave_tx_word_cnt")
+        time.sleep(wait)
+        print ('spi_slave_tx_word_cnt = ',hex(reg0))
+        slave_tx_word_cnt = int(reg0)
+
+        #print ('read spi slave rx word count')
+        reg0 = self._ipbus.read("spi_slave_rx_word_cnt")
+        time.sleep(wait)
+        print ('spi_slave_rx_word_cnt = ',hex(reg0))
+        slave_rx_word_cnt = int(reg0)
+
+
+        print ('master send to 1')
+        for i in range(master_tx_word_cnt):
+            send = 1
+            self._ipbus.write("spi_master_control_reg.send", send)
+            time.sleep(wait)
+
+        #print ('read spi master tx word count')
+        reg0 = self._ipbus.read("spi_master_tx_word_cnt")
+        time.sleep(wait)
+        print ('spi_master_tx_word_cnt = ',hex(reg0))
+        master_tx_word_cnt = int(reg0)
+
+        #print ('read spi master rx word count')
+        reg0 = self._ipbus.read("spi_master_rx_word_cnt")
+        time.sleep(wait)
+        print ('spi_master_rx_word_cnt = ',hex(reg0))
+        master_rx_word_cnt = int(reg0)
+
+        #print ('read spi slave tx word count')
+        reg0 = self._ipbus.read("spi_slave_tx_word_cnt")
+        time.sleep(wait)
+        print ('spi_slave_tx_word_cnt = ',hex(reg0))
+        slave_tx_word_cnt = int(reg0)
+
+        #print ('read spi slave rx word count')
+        reg0 = self._ipbus.read("spi_slave_rx_word_cnt")
+        time.sleep(wait)
+        print ('spi_slave_rx_word_cnt = ',hex(reg0))
+        slave_rx_word_cnt = int(reg0)
+
+        print ('read slave data ')
+        for i in range(slave_rx_word_cnt):
+            reg0 = self._ipbus.read("spi_slave_data")
+            time.sleep(wait)
+            print ('spi_slave_data = ',hex(reg0))
+
+        f.close()
+        print ('done!')
+
 
     def spi_read_sanity(self):
         print('reading sanity')
