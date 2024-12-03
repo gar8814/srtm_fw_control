@@ -14,15 +14,20 @@ class FirmwareControl:
             ret = int(input(">").strip())
         return ret
     
-    def writeMsg(self):
+    def _writeMsg(self):
         print("Enter new value")
-        ret = input(">").strip()
+        ret = int(input(">").strip())
         return ret
 
     def _LTIcase(self):
         print("Enter case number")
         ret = input(">").strip()
         return ret
+    
+    def _getVal(self):
+        print("Enter Value to Write in hex")
+        ret = int(input(">").strip(), 16)
+        return ret 
 
     def run(self):
         while (True):
@@ -50,11 +55,9 @@ class FirmwareControl:
                 #SRTM.lti_send_test_data(case)
             #returns reg name
             elif command == 'freq_count_max_cnt':
-                print("INFO: ")
-                if self.getReadWrite()==1:
-                    msg=self.writeMsg()
-                    for i in range(len(self._srtms)):
-                        self._srtms[i].write_axi_boardinfo_usernum(command,msg)
+                msg=self.writeMsg()
+                for i in range(len(self._srtms)):
+                    self._srtms[i].write_reg(command,msg)
             elif command=="Send Master Data":
                 for i in range(len(self._srtms)):
                     self._srtms[i].spi_send_data_master()
@@ -67,5 +70,23 @@ class FirmwareControl:
             elif command=="Send Reset":
                 for i in range(len(self._srtms)):
                     self._srtms[i].spi_send_reset()
+            elif command=="axi_boardinfo_user_reg5":
+                for i in range(len(self._srtms)):
+                    val = self._getVal()
+                    ret = self._srtms[i].write_reg(command, val)
+                    if ret == -1:
+                        print("ERROR: Write failed")
+            elif command=="axi_boardinfo_user_reg6":
+                for i in range(len(self._srtms)):
+                    val = self._getVal()
+                    ret = self._srtms[i].write_reg(command, val)
+                    if ret == -1:
+                        print("ERROR: Write failed")
+            elif command=="axi_boardinfo_user_reg7":
+                for i in range(len(self._srtms)):
+                    val = self._getVal()
+                    ret = self._srtms[i].write_reg(command, val)
+                    if ret == -1:
+                        print("ERROR: Write failed")
             else:
                 print(f'ERROR: {command} invalid:')
