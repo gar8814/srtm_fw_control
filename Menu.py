@@ -49,11 +49,11 @@ class Menu:
  
 
     def run(self):
-        print("INFO: In menu.run()")
+        # print("INFO: In menu.run()")
         while True:
 
             self.displayCurrentMenu()
-            print("INFO: After menu.DisplayCurrentMenu() call")
+            # print("INFO: After menu.DisplayCurrentMenu() call")
             currentSelections = len(self.menuTree[self.currentMenu].get("options", []) + self.menuTree[self.currentMenu].get("extra options", []))
             choice = self._getSelection(currentSelections)
             print(f'choice = {choice}')
@@ -72,12 +72,12 @@ class Menu:
                 if selectedOption in self.menuTree:
                     self.currentMenu = selectedOption
                 else:
-                    print(f"Selected: {selectedOption}")
+                    # print(f"Selected: {selectedOption}")
                     return selectedOption
 
     
     def displayCurrentMenu(self):
-        print("INFO: in menu.displayCurrentMenu()")
+        # print("INFO: in menu.displayCurrentMenu()")
         returnOption = "Back"
         operation = self.menuTree[self.currentMenu].get("operation", "")
         if self.currentMenu == 'Main Menu':

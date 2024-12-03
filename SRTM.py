@@ -404,3 +404,27 @@ class SRTM:
     
     def spi_send_reset(self):
         print('sent reset')
+        wait = 5.
+
+        print ('spi master reset 1')
+        reset = 1
+        self._ipbus.write("spi_master_control_reg.reset", reset)
+        time.sleep(wait)
+
+        print ('spi master reset 0')
+        reset = 0
+        self._ipbus.write("spi_master_control_reg.reset", reset)
+        time.sleep(wait)
+
+        print ('spi slave reset 1')
+        reset = 1
+        self._ipbus.write("spi_slave_control_reg.reset", reset)
+        time.sleep(wait)
+
+        print ('spi slave reset 0')
+        reset = 0
+        self._ipbus.write("spi_slave_control_reg.reset", reset)
+        time.sleep(wait)
+
+
+        print ('done!')
